@@ -1,6 +1,7 @@
 import groovy.json.JsonSlurper
 
 import hudson.model.Result
+import hudson.model.Hudson
 import jenkins.model.CauseOfInterruption
 
 
@@ -29,7 +30,7 @@ build.getProject()._getRuns().each { _, run ->
             cause = new CauseOfInterruption.UserInterruption("Aborted by #${build.number}")
             exec.interrupt(Result.ABORTED, cause)
 
-            println "Aborted duplicate ${run} (${jenkins.getRootUrl() + run.getUrl()})"
+            println "Aborted duplicate ${run} (${Hudson.instance.getRootUrl() + run.getUrl()})"
         }
     }
 }
