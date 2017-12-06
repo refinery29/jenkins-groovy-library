@@ -2,7 +2,7 @@ import groovy.json.JsonSlurper
 
 import hudson.model.Result
 import hudson.model.Hudson
-import jenkins.model.CauseOfInterruption
+import hudson.console.ModelHyperlinkNote
 
 
 // Look for GitHub webhook payload in configured var or default to 'payload'
@@ -27,10 +27,9 @@ build.getProject()._getRuns().each { _, run ->
 
         if (runBuildJSON["pull_request"]["head"]["label"] == currentBuildJSON["pull_request"]["head"]["label"]
            && runBuildJSON["pull_request"]["base"]["label"] == currentBuildJSON["pull_request"]["base"]["label"]) {
-            cause = new CauseOfInterruption.UserInterruption("${build.number}")
-            exec.interrupt(Result.ABORTED, cause)
-
-            println "Aborted duplicate #${run.number}"
+            exec.interrupt(Result.ABORTED)
+            run.setDescription("${run.description ?:''}\n\nAborted because <a href=\"${Hudson.instance.getRootUrl() + build.getUrl()}\">${build}</a> ran against the same PR.")
+            println "Aborted duplicate " + ModelHyperlinkNote.encodeTo(Hudson.instance.getRootUrl() + run.getUrl(), run.getFullDisplayName())
         }
     }
 }
