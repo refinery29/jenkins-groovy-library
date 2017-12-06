@@ -27,7 +27,7 @@ build.getProject()._getRuns().each { _, run ->
 
         if (runBuildJSON["pull_request"]["head"]["label"] == currentBuildJSON["pull_request"]["head"]["label"]
            && runBuildJSON["pull_request"]["base"]["label"] == currentBuildJSON["pull_request"]["base"]["label"]) {
-            cause = new CauseOfInterruption.UserInterruption("Aborted by #${build.number}")
+            cause = new CauseOfInterruption.UserInterruption("${build.number}")
             exec.interrupt(Result.ABORTED, cause)
 
             println "Aborted duplicate #${run.number}"
