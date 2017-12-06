@@ -7,7 +7,7 @@ import jenkins.model.CauseOfInterruption
 // Look for GitHub webhook payload in configured var or default to 'payload'
 try {
     assert githubHookPayloadVar in String
-} catch e {
+} catch(e) {
     githubHookPayloadVar = "payload"
 }
 
@@ -18,14 +18,14 @@ def current_build_json = new JsonSlurper().parseText(build.buildVariables.get(gi
 build.getProject()._getRuns().each { _, run ->
 
     // Only consider runs which are still running which aren't the current run
-    if run.getResult().equals(null) && run!=build {
+    if (run.getResult().equals(null) && run!=build) {
         def exec = run.getExecutor()
 
         // Parse object from json payload for run build
         def run_build_json = new JsonSlurper().parseText(run.buildVariables.get("payload"))
 
-        if run_build_json["pull_request"]["head"]["label"] == current_build_json["pull_request"]["head"]["label"]
-           && run_build_json["pull_request"]["base"]["label"] == current_build_json["pull_request"]["base"]["label"] {
+        if (run_build_json["pull_request"]["head"]["label"] == current_build_json["pull_request"]["head"]["label"]
+           && run_build_json["pull_request"]["base"]["label"] == current_build_json["pull_request"]["base"]["label"]) {
             cause = new CauseOfInterruption.UserInterruption("Aborted by #${build.number}")
             exec.interrupt(Result.ABORTED, cause)
         }
