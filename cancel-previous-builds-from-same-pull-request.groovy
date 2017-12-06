@@ -14,8 +14,6 @@ try {
 // Parse object from json payload for current build
 def currentBuildJSON = new JsonSlurper().parseText(build.buildVariables.get(githubHookPayloadVar))
 
-def abortedJobs = []
-
 // Iterate through current project runs
 build.getProject()._getRuns().each { _, run ->
 
@@ -30,11 +28,10 @@ build.getProject()._getRuns().each { _, run ->
            && runBuildJSON["pull_request"]["base"]["label"] == currentBuildJSON["pull_request"]["base"]["label"]) {
             cause = new CauseOfInterruption.UserInterruption("Aborted by #${build.number}")
             exec.interrupt(Result.ABORTED, cause)
-            abortedJobs += run
+
+            println "Aborted duplicate ${run}"
         }
     }
 }
 
-abortedJobs.each { run ->
-    "Aborted duplicate ${run}"
-}
+null
