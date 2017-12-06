@@ -30,7 +30,7 @@ build.getProject()._getRuns().each { _, run ->
             cause = new CauseOfInterruption.UserInterruption("Aborted by #${build.number}")
             exec.interrupt(Result.ABORTED, cause)
 
-            println "Aborted duplicate ${run} (${Hudson.instance.getRootUrl() + run.getUrl()})"
+            println "Aborted duplicate #${run.number}"
         }
     }
 }
