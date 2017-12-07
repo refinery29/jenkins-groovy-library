@@ -28,7 +28,7 @@ build.getProject()._getRuns().each { _, run ->
         if (runBuildJSON["pull_request"]["head"]["label"] == currentBuildJSON["pull_request"]["head"]["label"]
            && runBuildJSON["pull_request"]["base"]["label"] == currentBuildJSON["pull_request"]["base"]["label"]) {
             exec.interrupt(Result.ABORTED)
-            run.setDescription("${run.description ?:''}\n\nAborted because <a href=\"${Hudson.instance.getRootUrl() + build.getUrl()}\">${build}</a> ran against the same PR.")
+            run.setDescription("${run.description ?:''}\n\nAborted as dup of <a href=\"${Hudson.instance.getRootUrl() + build.getUrl()}\">${build}</a>.")
             println "Aborted duplicate " + ModelHyperlinkNote.encodeTo(Hudson.instance.getRootUrl() + run.getUrl(), run.getFullDisplayName())
         }
     }
