@@ -16,7 +16,7 @@ try {
      */
     assert githubHookJobActions in List
 } catch(e) {
-    githubHookJobActions = ["synchronize", "opened"]
+    githubHookJobActions = ["synchronize", "opened", "edited"]
 }
 
 // Parse object from json payload for current build
