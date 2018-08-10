@@ -1,3 +1,5 @@
+println("Running ${getClass().protectionDomain.codeSource.location.path}")
+
 import hudson.model.StringParameterValue
 import hudson.model.ParametersAction
 
@@ -22,9 +24,9 @@ def setBuildParameters(map) {
 
 def get_build_label_for_stack(stack) {
   switch (stack) {
-    case ~/(PRODUCTION|preprod|stack.+)/:
+    case ~/(PRODUCTION|preprod(\d\d)?|stack\d\d)/:
       return 'dal5'
-    case '':
+    default:
       return 'cloud'
   }
 }
