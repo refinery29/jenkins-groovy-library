@@ -13,3 +13,4 @@ def set_build_display_name(text) {
         text.replace(it[0], env.get(it[1]))
     }
     return text
+}
