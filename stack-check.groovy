@@ -3,14 +3,19 @@ env = build.getEnvironment()
 stack = env.get('stack')
 stack_name = env.get('stack_name')
 
+def interrupt(message) {
+    msg = 'ERROR: ' + message
+    build.displayName = msg
+    println(msg)
+    throw new InterruptedException(msg)
+}
+
 // Abort the build if no stack set.
 if (stack == '' && stack_name == '') {
-    build.displayName = 'No stack specified'
-    throw new InterruptedException('Aborting due to missing stack')
+    interrupt('No stack specified')
 }
 
 // Abort if both stack and stack name are provided.
 if (stack != '' && stack_name != '') {
-  build.displayName = "ERROR: stack and stack_name provided"
-  throw new InterruptedException("ERROR: Only one of `stack` and `stack_name` should be provided")
+    interrupt('Both stack and stack_name provided')
 }
