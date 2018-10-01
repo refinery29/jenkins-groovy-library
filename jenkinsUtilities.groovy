@@ -1,7 +1,7 @@
 import hudson.model.StringParameterValue
 import hudson.model.ParametersAction
 
-def setBuildParameters(map) {
+def set_build_parameters(map) {
   def new_parameter_list = new ArrayList<StringParameterValue>()
   for (item in map) {
     new_parameter_list.add(
@@ -50,3 +50,12 @@ def abort_unless_valid_stack_config(build, stack, stack_name) {
 def set_build_display_for_stack(stack, stack_name, neptune_ref) {
   build.displayName = "${neptune_ref}>${stack}${stack_name}"
 }
+
+class JenkinsUtilities {
+  set_build_parameters = set_build_parameters
+  get_build_label_for_stack = get_build_label_for_stack
+  abort_unless_valid_stack_config = abort_unless_valid_stack_config
+  set_build_display_for_stack = set_build_display_for_stack
+}
+
+return JenkinsUtilities
