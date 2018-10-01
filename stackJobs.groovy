@@ -1,5 +1,5 @@
 println("Running ${getClass().protectionDomain.codeSource.location.path}")
-println("Running in dir ${getClass().protectionDomain.codeSource.location.path.getParentFile()}")
+println("Running in dir ${new File(getClass().protectionDomain.codeSource.location.path).getParentFile()}")
 evaluate(new File("${getClass().protectionDomain.codeSource.location.path.getParentFile()}/jenkinsUtility.groovy"))
 println("Running ${getClass().protectionDomain.codeSource.location.path}")
 build = Thread.currentThread().executable
