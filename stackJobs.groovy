@@ -1,5 +1,5 @@
 println("Running ${getClass().protectionDomain.codeSource.location.path}")
-evaluate(new File("${new File(getClass().protectionDomain.codeSource.location.path).getParentFile()}/jenkinsUtility.groovy"))
+evaluate(new File("${new File(getClass().protectionDomain.codeSource.location.path).getParentFile()}/jenkinsUtilities.groovy"))
 build = Thread.currentThread().executable
 env = build.getEnvironment()
 stack = env.get('stack')
