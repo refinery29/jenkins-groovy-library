@@ -1,5 +1,5 @@
 println("Running ${getClass().protectionDomain.codeSource.location.path}")
-evaluate(new File("${new File(getClass().protectionDomain.codeSource.location.path).getParentFile()}/jenkinsUtilities.groovy"))
+JenkinsUtilities = evaluate(new File("${new File(getClass().protectionDomain.codeSource.location.path).getParentFile()}/jenkinsUtilities.groovy"))
 jenkinsUtilities = new JenkinsUtilities()
 build = Thread.currentThread().executable
 env = build.getEnvironment()
