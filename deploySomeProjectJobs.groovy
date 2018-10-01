@@ -43,8 +43,8 @@ def abort_build_if_missing_parameters(build, parameter_names) {
   parameter_values - '' // Remove empty values
 
   if (! parameter_values) {
-    build.displayName = "Missing vaule for ${parameter_names.join(', ')}"
-    throw new InterruptedException('Aborting due to missing stack')
+    build.displayName = "Missing value for ${parameter_names.join(', ')}."
+    throw new InterruptedException('Aborting due to missing stack.')
   }
 
   return
